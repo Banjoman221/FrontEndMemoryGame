@@ -2,6 +2,13 @@
  * Create a list that holds all of your cards
  */
 
+const cards = document.getElementsByClassName('card');
+
+for (let i = 0; i < cards.length; i++) {
+  const allCards = cards[i];
+  allCards.addEventListener('click', function () {
+  allCards.classList.toggle('match');
+})}
 
 /*
  * Display the cards on the page
