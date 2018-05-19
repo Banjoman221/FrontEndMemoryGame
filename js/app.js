@@ -1,14 +1,14 @@
 /*
  * Create a list that holds all of your cards
+ * Numbers represent cards
  */
 
-const cards = document.getElementsByClassName('card');
+const newCards = document.getElementsByClassName('card')
+let cardArr = [];
 
-for (let i = 0; i < cards.length; i++) {
-  const allCards = cards[i];
-  allCards.addEventListener('click', function () {
-  allCards.classList.toggle('match');
-})}
+for (let newCard of newCards){
+  cardArr.push(newCard)
+}
 
 /*
  * Display the cards on the page
@@ -19,7 +19,7 @@ for (let i = 0; i < cards.length; i++) {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -30,6 +30,15 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+let cards = shuffle(cardArr);
+console.log(cards)
+
+
+for (let card of cards){
+    let htmlCard = card.outerHTML;
+    console.log(htmlCard)
 }
 
 
