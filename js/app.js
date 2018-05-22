@@ -1,15 +1,16 @@
 /*
  * Create a list that holds all of your cards
- * Numbers represent cards
+ *
  */
 
-const newCards = document.getElementsByClassName('card')
-let cardArr = [];
-
-for (let newCard of newCards){
-  cardArr.push(newCard)
-}
-
+const listOfCards = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 'anchor', 'bolt', 'bolt', 'cube', 'cube', 'bomb', 'bomb', 'bicycle', 'bicycle', 'leaf', 'leaf']
+let stars = $('.stars');
+let moves = $('.moves');
+let container = $('.container');
+let cards = document.getElementsByClassName('card');
+let openCards = [];
+const restartGame = $('.restart')
+let deck = $('.deck')
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -32,16 +33,18 @@ function shuffle(array) {
     return array;
 }
 
-let cards = shuffle(cardArr);
-console.log(cards)
-
-
-for (let card of cards){
-    let htmlCard = card.outerHTML;
-    console.log(htmlCard)
+function emptyBoard() {
+  stars.empty();
+  moves = 0;
+  deck.empty();
+  const newCards = shuffle(listOfCards);
+  for (let newCard of newCards){
+     deck.append('<li class="card"><i class="fa fa-'+ newCard +'"></i></li>')
+     console.log(newCard)
+  }addListener()
 }
-
-
+emptyBoard();
+restartGame.click(emptyBoard)
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -52,3 +55,26 @@ for (let card of cards){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+function addListener(){
+   for (let card of cards){
+     card.onclick = display(card)
+   }
+}
+function addMoves(card){
+    moving = ++moves;
+    function addMoves(card){
+    $('.moves').html(moving);
+    console.log(moves)
+  }
+}
+function display(card){
+    return function () {
+      card.classList.add('open', 'show')
+      openCards.push(card)
+      openList(card)
+    }
+}
+function openList(card){
+    
+    console.log(openCards)
+}
