@@ -9,8 +9,10 @@ let moves = $('.moves');
 let container = $('.container');
 let cards = document.getElementsByClassName('card');
 let openCards = [];
+let congratulations = [];
 const restartGame = $('.restart')
 let deck = $('.deck')
+let congrats = document.getElementsByClassName('congrats')
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -57,7 +59,7 @@ restartGame.click(emptyBoard)
  */
 function addListener(){
    for (let card of cards){
-     card.onclick = display(card)
+     card.addEventListener('click', display(card),{capture:true})
    }
 }
 function addMoves(card){
@@ -70,11 +72,34 @@ function addMoves(card){
 function display(card){
     return function () {
       card.classList.add('open', 'show')
-      openCards.push(card)
       openList(card)
     }
 }
 function openList(card){
-    
-    console.log(openCards)
+  openCards.push(card)
+  if (openCards.indexOf(card,0)){
+    let cardsOpen = openCards.shift();
+    let card1 = openCards.pop();
+    openCards.length = 0;
+    matchCards(card,cardsOpen,card1)
+  }
+}
+function matchCards(card,cardsOpen,card1){
+  if (cardsOpen.innerHTML === card1.innerHTML){
+    cardsOpen.classList.add('match')
+    card1.classList.add('match')
+    if (card.classList.contains('open','show','match')){
+        congratulations.push(card)
+        console.log(congratulations)
+        if (congratulations[7]){
+          $('div.congrats').addClass('finished')
+          console.log('yeah')
+        }
+    }
+  }else {
+    setTimeout(function(){
+    cardsOpen.classList.remove('open','show')
+    card1.classList.remove('open', 'show')
+  },300);
+}
 }
