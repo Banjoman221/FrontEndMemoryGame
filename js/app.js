@@ -3,16 +3,14 @@
  *
  */
 
-const listOfCards = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 'anchor', 'bolt', 'bolt', 'cube', 'cube', 'bomb', 'bomb', 'bicycle', 'bicycle', 'leaf', 'leaf']
+const listOfCards = ['gem', 'gem', 'paper-plane', 'paper-plane', 'anchor', 'anchor', 'bolt', 'bolt', 'cube', 'cube', 'bomb', 'bomb', 'bicycle', 'bicycle', 'leaf', 'leaf']
 let stars = $('.stars');
-let moves = $('.moves');
-let container = $('.container');
 let cards = document.getElementsByClassName('card');
 let openCards = [];
 let congratulations = [];
-const restartGame = $('.restart')
-let deck = $('.deck')
-let congrats = document.getElementsByClassName('congrats')
+const restartGame = $('.restart');
+let deck = $('.deck');
+let time = 0;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -36,14 +34,15 @@ function shuffle(array) {
 }
 
 function emptyBoard() {
-  stars.empty();
-  moves = 0;
+  $('.moves').html(0);
   deck.empty();
   const newCards = shuffle(listOfCards);
   for (let newCard of newCards){
      deck.append('<li class="card"><i class="fa fa-'+ newCard +'"></i></li>')
      console.log(newCard)
-  }addListener()
+  } $('#myModal').addClass('modal')
+  congratulations = [];
+  addListener()
 }
 emptyBoard();
 restartGame.click(emptyBoard)
@@ -57,24 +56,43 @@ restartGame.click(emptyBoard)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+function timing(){
+   timin = time++;
+   $('.information').html(timin)
+   console.log(timin)
+ }
+
+function startInterval(){
+time = setInterval("timing()", 1000);
+}
+
+function stopInterval() {
+  clearInterval(timing);
+  time = 0;
+}
+
 function addListener(){
    for (let card of cards){
      card.addEventListener('click', display(card),{capture:true})
    }
 }
-function addMoves(card){
-    moving = ++moves;
-    function addMoves(card){
+
+function addMyMove(){
+    let moving = $('.moves').html();
+    moving++;
     $('.moves').html(moving);
-    console.log(moves)
-  }
+    console.log()
 }
+
 function display(card){
     return function () {
       card.classList.add('open', 'show')
+      startInterval()
+      addMyMove()
       openList(card)
     }
 }
+
 function openList(card){
   openCards.push(card)
   if (openCards.indexOf(card,0)){
@@ -84,7 +102,8 @@ function openList(card){
     matchCards(card,cardsOpen,card1)
   }
 }
-function matchCards(card,cardsOpen,card1){
+
+function matchCards(card,cardsOpen,card1,moving){
   if (cardsOpen.innerHTML === card1.innerHTML){
     cardsOpen.classList.add('match')
     card1.classList.add('match')
@@ -92,7 +111,9 @@ function matchCards(card,cardsOpen,card1){
         congratulations.push(card)
         console.log(congratulations)
         if (congratulations[7]){
-          $('div.congrats').addClass('finished')
+          $('#myModal').removeClass('modal')
+          document.querySelector('button').addEventListener('click', emptyBoard)
+          $('infomation').html(moving)
           console.log('yeah')
         }
     }
@@ -101,5 +122,5 @@ function matchCards(card,cardsOpen,card1){
     cardsOpen.classList.remove('open','show')
     card1.classList.remove('open', 'show')
   },300);
-}
+ }
 }

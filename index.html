@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <title>Matching Game</title>
     <meta name="description" content="">
-    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   </head>
 <body>
 
@@ -17,26 +17,29 @@
 
         <section class="score-panel">
         	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
+        		<li><i class="fab fa-jedi-order"></i></li>
+        		<li><i class="fab fa-jedi-order"></i></li>
+        		<li><i class="fab fa-jedi-order"></i></li>
         	</ul>
 
         	<span class="moves">0</span> Moves
 
           <div class="restart">
-        		<i class="fa fa-repeat"></i>
+        		<i class="fa fa-redo"></i>
         	</div>
         </section>
         <section>
           <ul class="deck">
           </ul>
         </section>
-        <secition>
-          <div class='finished'>
-            <h1 class="title-finished">Congratulations!! YOU DID IT!!!</h1>
-          </div>
-        </section>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="fab fa-jedi-order finished"></span>
+              <p> Congratulations!! YOU DID IT!!!</p>
+              <button type="button" name="button">Yes</button>
+              <span class='information'></span>
+            </div>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/app.js"></script>
