@@ -4,13 +4,14 @@
  */
 
 const listOfCards = ['gem', 'gem', 'paper-plane', 'paper-plane', 'anchor', 'anchor', 'bolt', 'bolt', 'cube', 'cube', 'bomb', 'bomb', 'bicycle', 'bicycle', 'leaf', 'leaf']
-let stars = $('.stars');
+let removeStars = [];
 let cards = document.getElementsByClassName('card');
 let openCards = [];
 let congratulations = [];
 const restartGame = $('.restart');
 let deck = $('.deck');
 let time = 0;
+let moves = $('.moves').html();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -40,9 +41,13 @@ function emptyBoard() {
   for (let newCard of newCards){
      deck.append('<li class="card"><i class="fa fa-'+ newCard +'"></i></li>')
      console.log(newCard)
-  } $('#myModal').addClass('modal')
+  }
+  $('.star_1, .star_2, .star_3').addClass('fab fa-jedi-order');
+  $('#myModal').addClass('modal')
   congratulations = [];
+  removeStars = [];
   addListener()
+  stopTimer()
 }
 emptyBoard();
 restartGame.click(emptyBoard)
@@ -56,24 +61,9 @@ restartGame.click(emptyBoard)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-function timing(){
-   timin = time++;
-   $('.information').html(timin)
-   console.log(timin)
- }
-
-function startInterval(){
-time = setInterval("timing()", 1000);
-}
-
-function stopInterval() {
-  clearInterval(timing);
-  time = 0;
-}
-
 function addListener(){
    for (let card of cards){
-     card.addEventListener('click', display(card),{capture:true})
+     card.addEventListener('click', display(card))
    }
 }
 
@@ -81,15 +71,16 @@ function addMyMove(){
     let moving = $('.moves').html();
     moving++;
     $('.moves').html(moving);
-    console.log()
+    $('.moving').html(moving + ' moves');
+    console.log(moving)
 }
 
 function display(card){
     return function () {
       card.classList.add('open', 'show')
-      startInterval()
-      addMyMove()
       openList(card)
+      addMyMove()
+      removingStars(card)
     }
 }
 
@@ -103,7 +94,7 @@ function openList(card){
   }
 }
 
-function matchCards(card,cardsOpen,card1,moving){
+function matchCards(card,cardsOpen,card1){
   if (cardsOpen.innerHTML === card1.innerHTML){
     cardsOpen.classList.add('match')
     card1.classList.add('match')
@@ -113,7 +104,6 @@ function matchCards(card,cardsOpen,card1,moving){
         if (congratulations[7]){
           $('#myModal').removeClass('modal')
           document.querySelector('button').addEventListener('click', emptyBoard)
-          $('infomation').html(moving)
           console.log('yeah')
         }
     }
@@ -124,3 +114,33 @@ function matchCards(card,cardsOpen,card1,moving){
   },300);
  }
 }
+
+window.addEventListener('click',  timer)
+
+function timer () {
+  setInterval(function () {
+      let timing = time++;
+      $('.seconds').html(timing + ' seconds')
+  },1000)
+  window.removeEventListener('click',  timer)
+}
+
+function stopTimer () {
+      clearInterval(timer);
+    time = 0;
+  }
+
+ function removingStars(card){
+   removeStars.push(card)
+   if (removeStars[25]){
+     $('.information').html('You finished with 2 Stars in' + time + ' seconds and with');
+     $('.star_3').removeClass('fab fa-jedi-order');
+   }if (removeStars[35]){
+     $('.star_2').removeClass('fab fa-jedi-order');
+   }if (removeStars[45]){
+     $('.star_1').removeClass('fab fa-jedi-order');
+     $('.information').html('You finished with No Stars in ' + time + ' seconds and with');
+   } else {
+     $('.information').html('You finished with 3 stars in ' + time + ' seconds and with');
+   }
+ }
