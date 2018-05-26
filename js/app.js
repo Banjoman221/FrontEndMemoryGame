@@ -10,8 +10,8 @@ let openCards = [];
 let congratulations = [];
 const restartGame = $('.restart');
 let deck = $('.deck');
+let moves = $('.moves').html()
 let time = 0;
-let moves = $('.moves').html();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -39,7 +39,7 @@ function emptyBoard() {
   deck.empty();
   const newCards = shuffle(listOfCards);
   for (let newCard of newCards){
-     deck.append('<li class="card"><i class="fa fa-'+ newCard +'"></i></li>')
+     deck.append('<li class="card hide"><i class="fa fa-'+ newCard +'"></i></li>')
      console.log(newCard)
   }
   $('.star_1, .star_2, .star_3').addClass('fab fa-jedi-order');
@@ -47,7 +47,7 @@ function emptyBoard() {
   congratulations = [];
   removeStars = [];
   addListener()
-  stopTimer()
+  time = 0;
 }
 emptyBoard();
 restartGame.click(emptyBoard)
@@ -67,19 +67,24 @@ function addListener(){
    }
 }
 
-function addMyMove(){
-    let moving = $('.moves').html();
-    moving++;
-    $('.moves').html(moving);
-    $('.moving').html(moving + ' moves');
-    console.log(moving)
+function addMyMove(card){
+  let hiddenCards = card.classList.contains('hide', 'card')
+    if (hiddenCards){
+      let moving = $('.moves').html();
+      moving++;
+      $('.moves').html(moving);
+      $('.moving').html(moving + ' moves');
+      removeStars.push(hiddenCards)
+      card.classList.remove('hide')
+      console.log(moving)
+      console.log(hiddenCards)
 }
-
+}
 function display(card){
     return function () {
       card.classList.add('open', 'show')
       openList(card)
-      addMyMove()
+      addMyMove(card)
       removingStars(card)
     }
 }
@@ -110,37 +115,40 @@ function matchCards(card,cardsOpen,card1){
   }else {
     setTimeout(function(){
     cardsOpen.classList.remove('open','show')
+    cardsOpen.classList.add('hide')
     card1.classList.remove('open', 'show')
+    card1.classList.add('hide')
   },300);
  }
 }
 
-window.addEventListener('click',  timer)
+document.addEventListener('click',  timer)
 
 function timer () {
+if (time == 0) {
   setInterval(function () {
       let timing = time++;
       $('.seconds').html(timing + ' seconds')
   },1000)
-  window.removeEventListener('click',  timer)
+  document.removeEventListener('click',  timer)
+}else {
+      clearInterval(timer);
+  }
 }
 
-function stopTimer () {
-      clearInterval(timer);
-    time = 0;
-  }
-
  function removingStars(card){
-   removeStars.push(card)
-   if (removeStars[25]){
-     $('.information').html('You finished with 2 Stars in' + time + ' seconds and with');
-     $('.star_3').removeClass('fab fa-jedi-order');
-   }if (removeStars[35]){
-     $('.star_2').removeClass('fab fa-jedi-order');
-   }if (removeStars[45]){
-     $('.star_1').removeClass('fab fa-jedi-order');
-     $('.information').html('You finished with No Stars in ' + time + ' seconds and with');
-   } else {
+      if (removeStars.length >= 25){
+          $('.star_3').removeClass('fab fa-jedi-order');
+          $('.information').html('You finished with 2 Stars in ' + time + ' seconds and with');
+          if (removeStars.length >= 35){
+              $('.star_2').removeClass('fab fa-jedi-order');
+              $('.information').html('You finished with 1 Stars in ' + time + ' seconds and with');
+              if (removeStars.length >= 45){
+                  $('.star_1').removeClass('fab fa-jedi-order');
+                  $('.information').html('You finished with No Stars in ' + time + ' seconds and with');
+              }
+          }
+      } else {
      $('.information').html('You finished with 3 stars in ' + time + ' seconds and with');
-   }
- }
+      }
+}
