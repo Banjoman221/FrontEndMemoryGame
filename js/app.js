@@ -8,10 +8,10 @@ let removeStars = [];
 let cards = document.getElementsByClassName('card');
 let openCards = [];
 let congratulations = [];
-const restartGame = $('.restart');
 let deck = $('.deck');
 let moves = $('.moves').html()
 let time = 0;
+let myInterval = -1;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -48,9 +48,33 @@ function emptyBoard() {
   removeStars = [];
   addListener()
   time = 0;
+  deck.one('click' , timer)
 }
 emptyBoard();
-restartGame.click(emptyBoard)
+$('.restart, .finished').click( function () {
+    if (myInterval == -1){
+    myInterval = setInterval(function () {
+    time++;
+    $('.seconds').html(time + ' seconds')
+  },1000)
+} else {
+  clearInterval(myInterval);
+  myInterval = -1;
+  time = 0;
+  $('.seconds').html(time + ' seconds')
+}emptyBoard()
+})
+
+
+deck.one('click' , timer)
+
+function timer () {
+clearInterval(myInterval)
+  myInterval = setInterval(function () {
+  time++;
+  $('.seconds').html(time + ' seconds')
+},1000)
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -108,7 +132,6 @@ function matchCards(card,cardsOpen,card1){
         console.log(congratulations)
         if (congratulations[7]){
           $('#myModal').removeClass('modal')
-          document.querySelector('button').addEventListener('click', emptyBoard)
           console.log('yeah')
         }
     }
@@ -122,19 +145,6 @@ function matchCards(card,cardsOpen,card1){
  }
 }
 
-document.addEventListener('click',  timer)
-
-function timer () {
-if (time == 0) {
-  setInterval(function () {
-      let timing = time++;
-      $('.seconds').html(timing + ' seconds')
-  },1000)
-  document.removeEventListener('click',  timer)
-}else {
-      clearInterval(timer);
-  }
-}
 
  function removingStars(card){
       if (removeStars.length >= 25){
@@ -143,7 +153,7 @@ if (time == 0) {
           if (removeStars.length >= 35){
               $('.star_2').removeClass('fab fa-jedi-order');
               $('.information').html('You finished with 1 Stars in ' + time + ' seconds and with');
-              if (removeStars.length >= 45){
+              if (removeStars.length >= 45  ){
                   $('.star_1').removeClass('fab fa-jedi-order');
                   $('.information').html('You finished with No Stars in ' + time + ' seconds and with');
               }
