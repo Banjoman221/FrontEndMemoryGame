@@ -19,7 +19,6 @@ body {
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
-
 }
 
 .container {
@@ -33,7 +32,6 @@ h1 {
     font-family: 'Orbitron', sans-serif;
     font-weight: 300;
     margin: 0;
-
 }
 
 /*
@@ -141,7 +139,6 @@ h1 {
 }
 
 .score-panel .stars {
-    margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
@@ -162,6 +159,7 @@ h1 {
 .modal {
     display: none;
 }
+
 .modal-content {
     visibility: visible;
     min-width: 100%;
@@ -173,8 +171,7 @@ h1 {
     left: 0;
     top: 0;
     font: 20px 'Orbitron', sans-serif;
-    animation: fadeIn;
-    animation-duration: 2s;
+    animation: fadeIn 2s;
 }
 
 @keyframes fadeIn {

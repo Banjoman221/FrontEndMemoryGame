@@ -28,12 +28,12 @@ function shuffle(array) {
 
 //function that is called to clear everything and add the cards and stars back
 
-function emptyBoard() {
+function emptyBoard () {
     $('.moves').html(0 + ' moves');
     Deck.empty();
     let newCards = shuffle(listOfCards);
     for (let newCard of newCards) {
-       Deck.append('<li class="card hide"></div><i class="fa fa-'+ newCard +'"></li>');
+       Deck.append('<li class="card hide"></div><i class="fa fa-' + newCard + '"></li>');
        console.log(newCard);
     }
     $('.star_1, .star_2, .star_3').addClass('fab fa-jedi-order');
@@ -68,7 +68,7 @@ $('.restart, .finished').click( function () {
 Deck.one('click' , timer);
 
 function timer () {
-    clearInterval(myInterval)
+    clearInterval(myInterval);
     myInterval = setInterval(function () {
         time++;
         $('.seconds').html(time + ' seconds');
@@ -95,7 +95,7 @@ function display (Card) {
     }
 }
 
-//Adds the cards to anrray
+//Adds the cards to an array
 
 function openList (Card) {
     //if the card contains hide add to openCards
