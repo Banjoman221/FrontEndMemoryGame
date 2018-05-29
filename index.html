@@ -1,20 +1,23 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Matching Game</title>
-    <meta name="description" content="">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
-    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  </head>
+    <head>
+        <meta charset="utf-8">
+        <title>Matching Game</title>
+        <meta name="description" content="">
+        <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+        <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
 <body>
-
+    <!-- Here is the main body -->
     <div class="container">
-        <header>
+        <!-- The header -->
+        <header class="title">
             <h1>Matching Game</h1>
         </header>
+        <!-- Congrats screen -->
         <div id="myModal" class="modal">
           <div class="modal-content">
             <span class="fab fa-jedi-order finished"></span>
@@ -25,24 +28,27 @@
           </div>
         </div>
 
+        <!-- Score Panel -->
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="star_1 fab fa-jedi-order"></i></li>
-        		<li><i class="star_2 fab fa-jedi-order"></i></li>
-        		<li><i class="star_3 fab fa-jedi-order"></i></li>
-        	</ul>
-
-        	<span class="moves">0</span> Moves
-
-
-          <div class="restart">
-        		<i class="fa fa-redo"></i>
-        	</div>
-          <span class="seconds">0 seconds</span>
+            <!-- Stars -->
+            <ul class="stars">
+                <li><i class="star_1 fab fa-jedi-order"></i></li>
+        		    <li><i class="star_2 fab fa-jedi-order"></i></li>
+        		    <li><i class="star_3 fab fa-jedi-order"></i></li>
+            </ul>
+            <!-- moves -->
+            <span class="moves" value="0"> moves</span>
+            <!-- Restart -->
+            <div class="restart">
+                <i class="fa fa-redo"></i>
+            </div>
+            <!-- Seconds -->
+            <span class="seconds">0 seconds</span>
         </section>
-        <section>
-          <ul class="deck">
-          </ul>
+        <!-- Deck of Cards -->
+        <section class="board">
+            <ul class="deck">
+            </ul>
         </section>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

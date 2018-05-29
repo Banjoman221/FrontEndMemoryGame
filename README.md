@@ -3,18 +3,18 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Built With](#built with)
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+The game can be started by clicking a card. If a card is clicked it starts the timer and adds a move to the counter. If two
+cards are clicked and they match they are locked into place. If two cards do not match then the cards are flipped back over.
+When moves are 25 or below you get 3 stars, 26 to 35 you get 2 stars, 36 to 45 you get 1 star , and 46 and above you get no
+stars. When all cards are flipped over then a congratulations screen is shown with how many moves were made , how much time it took, and how many stars were earned.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Built With
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+- [Jquery](https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js)
+- [Javascript](https://www.javascript.com/)
+- [CSS Animations](https://www.w3schools.com/css/css3_animations.asp)
+- [Font Awesome](https://fontawesome.com/icons?d=gallery)
